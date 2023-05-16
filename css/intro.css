@@ -1,0 +1,17 @@
+.intro_Container{
+
+}
+.intro_Inner{
+
+}
+section{
+    width: 100%; 
+    height: 100vh;
+}
+.sec01, .sec03{
+    background-color: #777;
+}
+
+.credit{
+     background-color: #777;
+}

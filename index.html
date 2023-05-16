@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/intro.css" />
+    <title>Just Listen-intro</title>
+  </head>
+  <body>
+    <div class="container intro_Container">
+      <div class="inner intro_Inner">
+        <!-- 1페이지 시작 -->
+        <section class="sec01">
+          <div class="sec01_Bg">
+            <div class="sec01_Logo">
+              <p>로고</p>
+            </div>
+          </div>
+        </section>
+        <!-- 1페이지 끝-->
+
+        <!-- 2페이지 시작-->
+        <section class="sec02">
+          <div class="sec02_Img">
+            <div class="bubble-Con sec02_bibble"></div>
+          </div>
+        </section>
+        <!-- 2페이지 끝-->
+
+        <!-- 3페이지 시작-->
+        <section class="sec03">
+          <div class="sec03_Img"></div>
+          <div class="bubble-Con sec03_bibble"></div>
+        </section>
+        <!-- 3페이지 끝-->
+
+        <!-- 4페이지 시작-->
+        <section class="sec04">
+          <div class="sec04_Img"></div>
+          <div class="bubble-Con sec04_bibble"></div>
+        </section>
+        <!-- 4페이지 끝-->
+        <!-- 크레딧 시작-->
+        <div class="credit">
+          <div class="credit_title">just six project</div>
+          <p class="credit_desc">
+            강도경 / mmtongsin@gmail.com> <br />
+            구자민 / kjmin1124@naver.com <br />
+            김주명 / kevin0019@naver.com <br />
+            이혜리 / gkfl1207@naver.com <br />
+            장태근 / devmeeple@gmail.com
+          </p>
+        </div>
+        <!-- 크레딧 끝-->
+      </div>
+      <!-- 인트로 이너 끝 -->
+    </div>
+    <!-- 인트로 컨테이너 끝 -->
+
+    <!-- 풋터시작 -->
+    <footer class="footer">
+      <div class="foot_Con"></div>
+    </footer>
+    <!-- 풋터끝 -->
+
+    <script src="js/jquery_3.6.js"></script>
+    <script>
+      const sec1_offset = $(".sec01").offset().top;
+      const sec2_offset = $(".sec02").offset().top;
+      const sec3_offset = $(".sec03").offset().top;
+      const sec4_offset = $(".sec04").offset().top;
+
+      $(window).scroll(function () {
+        const scrollTop = $(this).scrollTop();
+        $(".pos").text(scrollTop);
+        $(".offset").text(
+          "sec1 offfset : " +
+            sec1_offset +
+            " / sec2 offset : " +
+            sec2_offset +
+            " / sec3 offset : " +
+            sec3_offset +
+            " / sec4 offset : " +
+            sec4_offset
+        );
+        // 브라우저사이즈에 영향받지 않는 스크롤 이벤트 사용법
+        if (scrollTop > sec2_offset) {
+          $(".section2").css({
+            background: "magenta",
+          });
+        } else {
+          $(".section2").css({
+            background: "",
+          });
+        }
+        if (scrollTop >= sec3_offset) {
+          $(".section3").css({
+            background: "magenta",
+          });
+        } else {
+          $(".section3").css({
+            background: "",
+          });
+        }
+        if (scrollTop >= sec4_offset - $(window).innerHeight() / 1.5) {
+          $(".section4").css({
+            background: "magenta",
+          });
+        } else {
+          $(".section4").css({
+            background: "",
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
