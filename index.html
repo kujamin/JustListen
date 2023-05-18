@@ -9,6 +9,9 @@
     <title>Just Listen-intro</title>
   </head>
   <body>
+
+    <header class="header">HEADER</header>
+
     <div class="container intro_Container">
       <div class="inner intro_Inner">
         <!-- 1페이지 시작 -->
@@ -78,54 +81,51 @@
     <!-- 풋터끝 -->
 
     <script src="js/jquery_3.6.js"></script>
-    <script>
-      const sec1_offset = $(".sec01").offset().top;
-      const sec2_offset = $(".sec02").offset().top;
-      const sec3_offset = $(".sec03").offset().top;
-      const sec4_offset = $(".sec04").offset().top;
+        <script>
+      $(function () {
+      let didscroll;
+      let lastScrollTop = 0;
+      const delta = 20;
+      const header_height = $(".header").outerHeight();
+      const sec01_height = $(".sec01").innerHeight();
 
-      $(window).scroll(function () {
-        const scrollTop = $(this).scrollTop();
-        $(".pos").text(scrollTop);
-        $(".offset").text(
-          "sec1 offfset : " +
-            sec1_offset +
-            " / sec2 offset : " +
-            sec2_offset +
-            " / sec3 offset : " +
-            sec3_offset +
-            " / sec4 offset : " +
-            sec4_offset
-        );
-        // 브라우저사이즈에 영향받지 않는 스크롤 이벤트 사용법
-        if (scrollTop > sec2_offset) {
-          $(".section2").css({
-            background: "magenta",
-          });
-        } else {
-          $(".section2").css({
-            background: "",
-          });
+      setInterval(function () {
+        if (didscroll) {
+          scroll_headerEvent();
+          didscroll = false;
         }
-        if (scrollTop >= sec3_offset) {
-          $(".section3").css({
-            background: "magenta",
-          });
-        } else {
-          $(".section3").css({
-            background: "",
-          });
-        }
-        if (scrollTop >= sec4_offset - $(window).innerHeight() / 1.5) {
-          $(".section4").css({
-            background: "magenta",
-          });
-        } else {
-          $(".section4").css({
-            background: "",
-          });
-        }
+      }, 500);
+
+      $(window).on("scroll", function () {
+        didscroll = true;
       });
+      function scroll_headerEvent() {
+        const scrollTop = $(this).scrollTop();
+
+        // 미세한 스크롤에는 반응하지 않도록 잡아주기
+        // Math.abs 는 음수도 모두 양수로 만들어준다
+        // return은 해당 조건문에 적합할 시 다음 조건문까지 가지 않도록 브레이크를 건다
+        // 스크롤 차이값이 양,음수 10 이하일 시 sticky조건문으로 가지 않도록 막아둠
+
+        console.log(Math.abs(lastScrollTop - scrollTop));
+        if (Math.abs(lastScrollTop - scrollTop) <= delta) {
+          return;
+        }
+        if (scrollTop > lastScrollTop && scrollTop > sec01_height - header_height) {
+          // 이전 스크롤보다 내렸을 때 & 섹션1보다 아래로 내려갈 때
+          $(".header").addClass("sticky");
+        }
+        // 이전 스크롤보다 올렸을 때
+        else {
+          // 스크롤을 끝까지 내렸을때에도 적용하는 법(마지막섹션에서도 스크롤을을 움직일때 안정적으로 적용시키는 법)
+          if (scrollTop + $(window).innerHeight() < $(document).innerHeight()) {
+            $(".header").removeClass("sticky");
+          }
+        }
+
+        lastScrollTop = scrollTop;
+      }
+    });
     </script>
   </body>
 </html>
