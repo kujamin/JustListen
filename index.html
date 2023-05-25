@@ -102,22 +102,17 @@
       function scroll_headerEvent() {
         const scrollTop = $(this).scrollTop();
 
-        // 미세한 스크롤에는 반응하지 않도록 잡아주기
-        // Math.abs 는 음수도 모두 양수로 만들어준다
-        // return은 해당 조건문에 적합할 시 다음 조건문까지 가지 않도록 브레이크를 건다
-        // 스크롤 차이값이 양,음수 10 이하일 시 sticky조건문으로 가지 않도록 막아둠
-
         console.log(Math.abs(lastScrollTop - scrollTop));
         if (Math.abs(lastScrollTop - scrollTop) <= delta) {
           return;
         }
         if (scrollTop > lastScrollTop && scrollTop > sec01_height - header_height) {
-          // 이전 스크롤보다 내렸을 때 & 섹션1보다 아래로 내려갈 때
+
           $(".header").addClass("sticky");
         }
-        // 이전 스크롤보다 올렸을 때
+
         else {
-          // 스크롤을 끝까지 내렸을때에도 적용하는 법(마지막섹션에서도 스크롤을을 움직일때 안정적으로 적용시키는 법)
+
           if (scrollTop + $(window).innerHeight() < $(document).innerHeight()) {
             $(".header").removeClass("sticky");
           }
